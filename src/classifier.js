@@ -30,7 +30,7 @@ function createGroup(group) {
 
   group.forEach((student) => {
     studentGroup.members = [...studentGroup.members, { name: student.name, dob: student.dob, age: getAge(student.dob), regNo: student.regNo }];
-    studentGroup.regNos = [...studentGroup.regNos, parseInt(student.regNo)].sort((a, b) => a - b )
+    studentGroup.regNos = [...studentGroup.regNos, parseInt(student.regNo)].sort((a, b) => a - b)
   })
   return studentGroup;
 }
