@@ -65,6 +65,29 @@ Object.freeze(MORSE_CODE);
  */
 function decodeMorse(morseCode) {
   // Your code should go here.
+  decodeWord = function(morseWord) {
+    let morseSegments = morseWord.split(" ");
+    let decodedSegments = [];
+    let sLength = morseSegments.length;
+
+    for (let i = 0; i < sLength; i++) {
+        if (morseSegments[i] in MORSE_CODE) {
+            decodedSegments += MORSE_CODE[morseSegments[i]];
+        } else if (morseSegments[i] === "...---...") {
+            decodedSegments += " SOS ";
+        }
+    }
+    return decodedSegments;
+};
+
+let morseWords = morseCode.split("   ");
+let mLength = morseWords.length;
+let decodedMessage = "";
+for (let i = 0; i < mLength; i++) {
+    let decodedWord = decodeWord(morseWords[i]);
+    decodedMessage += decodedWord + " ";
+}
+return decodedMessage.trim();
 }
 
 module.exports = decodeMorse;
