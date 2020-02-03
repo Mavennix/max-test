@@ -4,40 +4,43 @@
  * @param {array} input Array of student objects
  */
 
-function getAge(dob) {
-  let date = new Date(dob).toISOString();
-  let today = new Date();
-  let birthDate = new Date(date);
-  let age = today.getFullYear() - birthDate.getFullYear();
-  let m = today.getMonth() - birthDate.getMonth();
-  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-    age--;
-  }
-  return age;
-}
-
-function createGroup(group) {
-  const total = group.reduce((prev, student) => {
-    return Number(prev) + Number((getAge(student.dob)));
-  }, 0);
-
-  const studentGroup = {
-    members: [],
-    oldest: getAge(group[group.length - 1].dob),
-    sum: total,
-    regNos: []
-  };
-
-  group.forEach((student) => {
-    studentGroup.members = [...studentGroup.members, { name: student.name, dob: student.dob, age: getAge(student.dob), regNo: student.regNo }];
-    studentGroup.regNos = [...studentGroup.regNos, parseInt(student.regNo)].sort((a, b) => a - b)
-  })
-  return studentGroup;
-}
 
 
 function classifier(input) {
+
+
   // Your code should go here.
+
+  const getAge = dob => {
+    let date = new Date(dob).toISOString();
+    let today = new Date();
+    let birthDate = new Date(date);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    let m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age;
+  }
+
+  const createGroup = group => {
+    const total = group.reduce((prev, student) => {
+      return Number(prev) + Number((getAge(student.dob)));
+    }, 0);
+    const studentGroup = {
+      members: [],
+      oldest: getAge(group[group.length - 1].dob),
+      sum: total,
+      regNos: []
+    };
+
+    group.forEach((student) => {
+      studentGroup.members = [...studentGroup.members, { name: student.name, dob: student.dob, age: getAge(student.dob), regNo: student.regNo }];
+      studentGroup.regNos = [...studentGroup.regNos, parseInt(student.regNo)].sort((a, b) => a - b)
+    })
+    return studentGroup;
+  }
+
 
   if (input.length == 0) {
     return { noOfGroups: 0 };
